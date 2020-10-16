@@ -23,6 +23,17 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
       .then((res) => {
+        getColor();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
+  const getColor = () => {
+    axiosWithAuth()
+      .get("/api/colors")
+      .then((res) => {
         updateColors(res.data);
       })
       .catch((err) => {
@@ -35,7 +46,7 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .delete(`/api/colors/${color.id}`)
       .then((res) => {
-        updateColors(res.data);
+        getColor();
       })
       .catch((err) => {
         console.log("err", err);
